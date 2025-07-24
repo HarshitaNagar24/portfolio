@@ -1,66 +1,4 @@
-// import React, { useState } from "react";
-// import "../styles/ContactForm.css";
-// const ContactForm = () => {
-//   const [form, setForm] = useState({ name: "", email: "", message: "" });
-//   const [submitted, setSubmitted] = useState(false);
-
-//   const handleChange = (e) => {
-//     setForm({ ...form, [e.target.name]: e.target.value });
-//   };
-
-//   const handleSubmit = (e) => {
-//     e.preventDefault();
-//     setSubmitted(true);
-//     // Add logic to send the form data to your email or backend
-//   };
-
-//   return (
-//     <section className="contact-section" id="contact">
-//       <h2>Contact Me</h2>
-//       <div style={{textAlign: "center", marginBottom: 16}}>
-//         <div><b>Phone:</b> 9691071796</div>
-//         <div><b>Email:</b> nagarharshita3@gmail.com</div>
-//         <div><b>Location:</b> Ahmedabad</div>
-//       </div>
-//       {submitted ? (
-//         <div className="contact-success">Thank you for reaching out!</div>
-//       ) : (
-//         <form className="contact-form" onSubmit={handleSubmit}>
-//           <input
-//             type="text"
-//             name="name"
-//             placeholder="Your Name"
-//             value={form.name}
-//             onChange={handleChange}
-//             required
-//           />
-//           <input
-//             type="email"
-//             name="email"
-//             placeholder="Your Email"
-//             value={form.email}
-//             onChange={handleChange}
-//             required
-//           />
-//           <textarea
-//             name="message"
-//             placeholder="Your Message"
-//             value={form.message}
-//             onChange={handleChange}
-//             required
-//             rows={5}
-//           />
-//           <button type="submit">Send Message</button>
-//         </form>
-//       )}
-//     </section>
-//   );
-// };
-
-// export default ContactForm;
-
-
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import emailjs from "emailjs-com";
 import "../styles/ContactForm.css";
 import "../styles/Home.css";
@@ -87,17 +25,19 @@ const ContactForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     emailjs.send(
-      "YOUR_SERVICE_ID",      // Replace with your EmailJS service ID
-      "YOUR_TEMPLATE_ID",     // Replace with your EmailJS template ID
+      "service_9wjrhaq",      // Replace with your EmailJS service ID
+      "template_3ka1nv8",     // Replace with your EmailJS template ID
       {
-        from_name: form.name,
-        from_email: form.email,
+        form_name: form.name,
+        form_email: form.email,
         message: form.message,
       },
-      "YOUR_USER_ID"          // Replace with your EmailJS user ID (public key)
+      "2KgGO0uxghNgh9vn0"          // Replace with your EmailJS user ID (public key)
     )
     .then(() => setSubmitted(true))
-    .catch((err) => alert("Failed to send message. Please try again."));
+    .catch((err) =>{ 
+      console.error("EmailJS error:", err);
+      alert("Failed to send message. Please try again.")});
   };
 
   return (
